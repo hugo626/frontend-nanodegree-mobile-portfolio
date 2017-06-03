@@ -21,21 +21,21 @@
   "homepage": "https://github.com/hugo626/frontend-nanodegree-mobile-portfolio#readme",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "clean": "rm -rf ./dist && mkdirp dist -p",
-    "mktopfolder": "mkdirp dist/css -p && mkdirp dist/js -p && mkdirp dist/img -p",
+    "clean": "rimraf dist",
+    "mktopfolder": "mkdirp dist -p && mkdirp dist/css -p && mkdirp dist/js -p && mkdirp dist/img -p",
+    "preoptimizecss:top": "run-s mktopfolder",
+    "optimizecss:top": "cleancss -O1 specialComments:off src/css/print.css -o dist/css/print.css && cleancss -O1 specialComments:off src/css/style.css -o dist/css/style.css",
     "mkpizzafolder": "mkdirp dist/views/js -p && mkdirp dist/views/css -p && mkdirp dist/views/images -p",
-    "premergecss": "run-s mktopfolder mkpizzafolder",
-    "mergecss": "cleancss -o dist/css/app.css src/css/* && cleancss -o dist/views/css/app.css src/views/css/*",
-    "preoptimizecss": "run-s mergecss",
-    "optimizecss": "cleancss -O1 specialComments:off dist/css/app.css > dist/css/app.min.css && cleancss -O1 specialComments:off dist/views/css/app.css > dist/views/css/app.min.css",
+    "preoptimizecss:pizza": "run-s mkpizzafolder",
+    "optimizecss:pizza": "cleancss -O1 specialComments:off src/views/css/bootstrap-grid.css -o dist/views/css/bootstrap-grid.css && cleancss -O1 specialComments:off src/views/css/style.css -o dist/views/css/style.css",
     "autoprefixer": "postcss -u autoprefixer -r dist/css/* && postcss -u autoprefixer -r dist/views/css/*",
     "lint": "eslint src/js && eslint src/views/js",
-    "uglifytop": "mkdirp dist/js -p && uglifyjs src/js/*.js -m -o dist/js/app.js && uglifyjs src/js/*.js -m -c -o dist/js/app.min.js",
-    "uglifypizza": "mkdirp dist/views/js -p && uglifyjs src/views/js/*.js -m -o dist/views/js/app.js && uglifyjs src/views/js/*.js -m -c -o dist/views/js/app.min.js",
+    "uglifytop": "mkdirp dist/js -p && uglifyjs src/js/perfmatters.js -m -c -o dist/js/perfmatters.js",
+    "uglifypizza": "mkdirp dist/views/js -p  && uglifyjs src/views/js/main.js -m -c -o dist/views/js/main.js",
     "imagemin": "imagemin src/img/* -o dist/img && imagemin src/views/images/* -o dist/views/images ",
     "copyhtml": "cp src/*.html dist/ && cp src/views/*.html dist/views/",
     "serve": "browser-sync start -s \"dist\" -f \"dist\" --index \"index.html\"",
-    "build:css": "run-s optimizecss autoprefixer",
+    "build:css": "run-s optimizecss:* autoprefixer",
     "build:js": "run-s uglifytop uglifypizza",
     "build:images": "run-s imagemin",
     "build": "run-s build:* copyhtml"
@@ -56,6 +56,7 @@
     "ngrok": "^2.2.9",
     "npm-run-all": "^4.0.2",
     "postcss-cli": "^4.0.0",
+    "rimraf": "^2.6.1",
     "uglify-js": "^3.0.15"
   }
 }
