@@ -1,0 +1,61 @@
+{
+  "name": "fend-mobile-portfolio",
+  "version": "0.0.1",
+  "description": "this is the project for frontend nanodegree\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[Csecond \u001b[2~project \u001b[2~for frontend nanodegree to practice how to optimize the speed of a page.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hugo626/frontend-nanodegree-mobile-portfolio.git"
+  },
+  "keywords": [
+    "udacity",
+    "pagespeed",
+    "frontend",
+    "nanodegree"
+  ],
+  "author": "Yuguo LI",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hugo626/frontend-nanodegree-mobile-portfolio/issues"
+  },
+  "homepage": "https://github.com/hugo626/frontend-nanodegree-mobile-portfolio#readme",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rm -rf ./dist && mkdirp dist -p",
+    "mktopfolder": "mkdirp dist/css -p && mkdirp dist/js -p && mkdirp dist/img -p",
+    "mkpizzafolder": "mkdirp dist/views/js -p && mkdirp dist/views/css -p && mkdirp dist/views/images -p",
+    "premergecss": "run-s mktopfolder mkpizzafolder",
+    "mergecss": "cleancss -o dist/css/app.css src/css/* && cleancss -o dist/views/css/app.css src/views/css/*",
+    "preoptimizecss": "run-s mergecss",
+    "optimizecss": "cleancss -O1 specialComments:off dist/css/app.css > dist/css/app.min.css && cleancss -O1 specialComments:off dist/views/css/app.css > dist/views/css/app.min.css",
+    "autoprefixer": "postcss -u autoprefixer -r dist/css/* && postcss -u autoprefixer -r dist/views/css/*",
+    "lint": "eslint src/js && eslint src/views/js",
+    "uglifytop": "mkdirp dist/js -p && uglifyjs src/js/*.js -m -o dist/js/app.js && uglifyjs src/js/*.js -m -c -o dist/js/app.min.js",
+    "uglifypizza": "mkdirp dist/views/js -p && uglifyjs src/views/js/*.js -m -o dist/views/js/app.js && uglifyjs src/views/js/*.js -m -c -o dist/views/js/app.min.js",
+    "imagemin": "imagemin src/img/* -o dist/img && imagemin src/views/images/* -o dist/views/images ",
+    "copyhtml": "cp src/*.html dist/ && cp src/views/*.html dist/views/",
+    "serve": "browser-sync start -s \"dist\" -f \"dist\" --index \"index.html\"",
+    "build:css": "run-s optimizecss autoprefixer",
+    "build:js": "run-s uglifytop uglifypizza",
+    "build:images": "run-s imagemin",
+    "build": "run-s build:* copyhtml"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "autoprefixer": "^7.1.1",
+    "browser-sync": "^2.18.12",
+    "clean-css-cli": "^4.1.3",
+    "eslint": "^3.19.0",
+    "eslint-config-google": "^0.8.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.3.0",
+    "eslint-plugin-node": "^5.0.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "imagemin-cli": "^3.0.0",
+    "ngrok": "^2.2.9",
+    "npm-run-all": "^4.0.2",
+    "postcss-cli": "^4.0.0",
+    "uglify-js": "^3.0.15"
+  }
+}
