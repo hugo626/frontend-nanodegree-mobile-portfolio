@@ -49,11 +49,10 @@ var copyAndMinifyImage = function(src, dist, name) {
                 optimizationLevel: 7
             }), imageminJpegRecompress({
                 method: 'smallfry',
-                target: 0.5
+                quality: 'high'
             })
         ]))
-        .pipe($.if(['pizzeria.jpg'], imageResize({
-            quality: 0.5,
+        .pipe($.if(['pizzeria-large.jpg'], imageResize({
             width: 720
         })))
         .pipe($.if(['pizza.png'], imageResize({
