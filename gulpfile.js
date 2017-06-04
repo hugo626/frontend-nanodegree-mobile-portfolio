@@ -53,6 +53,7 @@ var copyAndMinifyImage = function(src, dist, name) {
             })
         ]))
         .pipe($.if(['pizzeria.jpg'], imageResize({
+            quality: 0.3,
             width: 720
         })))
         .pipe($.if(['pizza.png'], imageResize({
