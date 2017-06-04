@@ -47,8 +47,7 @@ var copyAndMinifyImage = function(src, dist, name) {
             $.imagemin.optipng({
                 optimizationLevel: 7
             }),imageminJpegRecompress({
-                quality: 'high',
-                method: 'ms-ssim',
+                method: 'smallfry',
                 target: 0.5
             })
         ]))
@@ -183,7 +182,7 @@ gulp.task('serve:dev', '', function() {
 
     gulp.watch(['src/*.html', 'src/views/*.html'], reload);
     gulp.watch(['src/css/*.css', 'src/views/css/*.css'], reload);
-    gulp.watch(['src/js/*.js', 'src/js/views/*.js'], ['jshint',reload]);
+    gulp.watch(['src/js/*.js', 'src/views/js/*.js'], ['jshint',reload]);
     gulp.watch(['src/img/*', 'src/views/images/*'], reload);
 });
 
