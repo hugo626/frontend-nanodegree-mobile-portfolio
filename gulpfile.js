@@ -46,7 +46,11 @@ var copyAndMinifyImage = function(src, dist, name) {
             }),
             $.imagemin.optipng({
                 optimizationLevel: 7
-            }),imageminJpegRecompress()
+            }),imageminJpegRecompress({
+                quality: 'high',
+                method: 'ms-ssim',
+                target: 0.5
+            })
         ]))
         .pipe(gulp.dest(dist))
         .pipe($.size({
