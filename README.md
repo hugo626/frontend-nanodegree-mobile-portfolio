@@ -10,7 +10,8 @@ The purpose of this project is to optimize the given sites, so that
 More detialed project specification can be fund from [Project Specification](PROJECT-SPECIFICATION.md). [Project Rubic](https://review.udacity.com/#!/rubrics/16/view). 
 
 ## Check Result
-The optimized site is hosted by git hub: [Cam's Portfolio](https://hugo626.github.io/frontend-nanodegree-mobile-portfolio/dist/index.html).
+The optimized site is hosted by git hub: [Cam's Portfolio](https://hugo626.github.io/frontend-nanodegree-mobile-portfolio/dist/index.html). 
+Here is the [score for Cam's Portfolio](https://developers.google.com/speed/pagespeed/insights/?url=https%3A%2F%2Fhugo626.github.io%2Ffrontend-nanodegree-mobile-portfolio%2Fdist%2Findex.html&tab=desktop). If you are interesting to the [score for Pizza.html](https://developers.google.com/speed/pagespeed/insights/?url=https%3A%2F%2Fhugo626.github.io%2Ffrontend-nanodegree-mobile-portfolio%2Fdist%2Fviews%2Fpizza.html), only for fun.
 
 ## How to run local
 In this project, we use ```npm``` and ```gulp``` as library managment and build tool. 
