@@ -27,6 +27,7 @@ var del = require('del');
 var runSequence = require('run-sequence');
 var browserSync = require('browser-sync');
 var imageminJpegRecompress = require('imagemin-jpeg-recompress');
+var imageResize = require('gulp-image-resize');
 var ngrok = require('ngrok');
 var psiNgrok = require('psi-ngrok');
 var port = 8000;
@@ -51,12 +52,16 @@ var copyAndMinifyImage = function(src, dist, name) {
                 target: 0.5
             })
         ]))
+        .pipe($.if(['pizzeria.jpg'],imageResize({
+            percentage: 50
+        })))
         .pipe(gulp.dest(dist))
         .pipe($.size({
             title: name
         }));
 
 };
+
 var copyAndMinifyHtml = function(src, dist, name) {
     return gulp.src(src, {
             dot: true
@@ -230,7 +235,7 @@ function handleError(err) {
 // Run PageSpeed Insights
 gulp.task('pagespeed', function() {
     psiNgrok({
-        pages: ['index.html'],
+        pages: ['index.html','views/pizza.html'],
         port: port,
         onBeforeConnect: connectServer,
         onError: handleError,
