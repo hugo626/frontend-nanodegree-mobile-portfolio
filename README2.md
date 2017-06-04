@@ -17,11 +17,13 @@ change made
     ```
     newSize + '%';
     ```
+        
 2. inside of updatePositions function(); extract 
-```
-document.body.scrollTop     
-```
-out of the for loop, and cache it 
-```
-  var bodyScrollTop = document.body.scrollTop;
-```  
+    ```
+    document.body.scrollTop     
+    ```
+    out of the for loop, and cache it 
+    ```
+      var bodyScrollTop = document.body.scrollTop;
+    ```  
+3. compress both pizza.png and pizzeria.jpg. Also after observation, both pictures are too large than their max size in web page, so I decide to resize both size to match with their maximum size in web page.
