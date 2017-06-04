@@ -1,55 +1,78 @@
-## Website Performance Optimization portfolio project
+# Front End Nanodegree Mobile Portfolio
 
-Your challenge, if you wish to accept it (and we sure hope you will), is to optimize this online portfolio for speed! In particular, optimize the critical rendering path and make this page render as quickly as possible by applying the techniques you've picked up in the [Critical Rendering Path course](https://www.udacity.com/course/ud884).
+This is second project which comes from [Udacity](https://udacity.com/) [Front End Nanodegree](https://www.udacity.com/course/--nd001-cn-advanced)
 
-To get started, check out the repository and inspect the code.
+## Goal
+The purpose of this project is to optimize the given sites, so that 
+1. ```index.html``` achieves a [PageSpeed Insights](https://developers.google.com/speed/pagespeed/insights/) score of at least **90** for Mobile and Desktop.
+2. ```pizza.html``` achives a ```60FPS``` when scrolling and time to resize pizzas is less than ```5 ms``` using the pizza size slider.
 
-### Getting started
+More detialed project specification can be fund from [Project Specification](PROJECT-SPECIFICATION.md). [Project Rubic](https://review.udacity.com/#!/rubrics/16/view). 
 
-#### Part 1: Optimize PageSpeed Insights score for index.html
+## Check Result
+The optimized site is hosted by git hub: [Cam's Portfolio](https://hugo626.github.io/frontend-nanodegree-mobile-portfolio/dist/index.html).
 
-Some useful tips to help you get started:
+## How to run local
+In this project, we use ```npm``` and ```gulp``` as library managment and build tool. 
+### Build Environment
+In order to be able to run and build locally, you have to install [node.js](https://nodejs.org/en/download/) first. 
+1. Install [Gulp](http://gulpjs.com/), 
+```
+npm install gulp-cli -g
+```
+2. Install [GraphicsMagick](http://www.graphicsmagick.org/), in our project, we are using some image compressing and resizing function from GraphicsMagick, so you have to install it first. *NOTICE. make sure to check ```gm``` commands is callable throught terminal.*
 
-1. Check out the repository
-1. To inspect the site on your phone, you can run a local server
+3. Go to the root folder of this project ```**/frontend-nanodegree-mobile-portfolio/``` then run 
+```
+npm install
+```
 
-  ```bash
-  $> cd /path/to/your-project-folder
-  $> python -m SimpleHTTPServer 8080
-  ```
 
-1. Open a browser and visit localhost:8080
-1. Download and install [ngrok](https://ngrok.com/) to the top-level of your project directory to make your local server accessible remotely.
+## What optimised
+main.js
+change made
+1. Removed function determineDx(), move the  
+   ``` 
+    switch(size) {
+        case "1":
+          return 0.25;
+        case "2":
+          return 0.3333;
+        case "3":
+          return 0.5;
+        default:
+          console.log("bug in sizeSwitcher");
+      }
+    ```
+    into changePizzaSizes function directly. and change the size of width to percentage 
+    ```
+    newSize + '%';
+    ```
+        
+2. inside of updatePositions function(); extract 
+    ```
+    document.body.scrollTop     
+    ```
+    out of the for loop, and cache it 
+    ```
+      var bodyScrollTop = document.body.scrollTop;
+    ```  
+3. compress both pizza.png and pizzeria.jpg. Also after observation, both pictures are too large than their max size in web page, so I decide to resize both size to match with their maximum size in web page.
+4. most important: add responive image for pizzeria.jpg, as I observed, when the site is loaded on desktop, the size of pizzeria is actuall 360*270px, that is why pagespeed keep ask me to reduce the of pizzeria image. But when the browser is resize to 997 px, the pizzeria will scall up tp 720*540px. 
 
-  ``` bash
-  $> cd /path/to/your-project-folder
-  $> ./ngrok http 8080
-  ```
+For index.html
+1. download three picture for thumbnail.
+2. add media = "print" to print.css
+```
+<link href="css/print.css" rel="stylesheet" media="print">
+```
+2. move to bottom analytics.js of body tag, and add async
+```
+<script async src="http://www.google-analytics.com/analytics.js"></script>
+```
+3. generate a thumnail for pizzeria.jpg
+4. move google font to bottom of body.
+5. inline style.css into index.html
 
-1. Copy the public URL ngrok gives you and try running it through PageSpeed Insights! Optional: [More on integrating ngrok, Grunt and PageSpeed.](http://www.jamescryer.com/2014/06/12/grunt-pagespeed-and-ngrok-locally-testing/)
-
-Profile, optimize, measure... and then lather, rinse, and repeat. Good luck!
-
-#### Part 2: Optimize Frames per Second in pizza.html
-
-To optimize views/pizza.html, you will need to modify views/js/main.js until your frames per second rate is 60 fps or higher. You will find instructive comments in main.js. 
-
-You might find the FPS Counter/HUD Display useful in Chrome developer tools described here: [Chrome Dev Tools tips-and-tricks](https://developer.chrome.com/devtools/docs/tips-and-tricks).
-
-### Optimization Tips and Tricks
-* [Optimizing Performance](https://developers.google.com/web/fundamentals/performance/ "web performance")
-* [Analyzing the Critical Rendering Path](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/analyzing-crp.html "analyzing crp")
-* [Optimizing the Critical Rendering Path](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/optimizing-critical-rendering-path.html "optimize the crp!")
-* [Avoiding Rendering Blocking CSS](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/render-blocking-css.html "render blocking css")
-* [Optimizing JavaScript](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/adding-interactivity-with-javascript.html "javascript")
-* [Measuring with Navigation Timing](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/measure-crp.html "nav timing api"). We didn't cover the Navigation Timing API in the first two lessons but it's an incredibly useful tool for automated page profiling. I highly recommend reading.
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/eliminate-downloads.html">The fewer the downloads, the better</a>
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/optimize-encoding-and-transfer.html">Reduce the size of text</a>
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/image-optimization.html">Optimize images</a>
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching.html">HTTP caching</a>
-
-### Customization with Bootstrap
-The portfolio was built on Twitter's <a href="http://getbootstrap.com/">Bootstrap</a> framework. All custom styles are in `dist/css/portfolio.css` in the portfolio repo.
-
-* <a href="http://getbootstrap.com/css/">Bootstrap's CSS Classes</a>
-* <a href="http://getbootstrap.com/components/">Bootstrap's Components</a>
+## License
+This Arcade Game is Copyright (c) 2017 Yuguo LI. It is free software, and may be redistributed under the terms specified in the [LICENSE](LICENSE) file.
