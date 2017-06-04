@@ -39,3 +39,5 @@ For index.html
 <script async src="http://www.google-analytics.com/analytics.js"></script>
 ```
 3. generate a thumnail for pizzeria.jpg
+4. move google font to bottom of body.
+5. inline style.css into index.html
