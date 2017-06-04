@@ -47,13 +47,16 @@ var copyAndMinifyImage = function(src, dist, name) {
             }),
             $.imagemin.optipng({
                 optimizationLevel: 7
-            }),imageminJpegRecompress({
+            }), imageminJpegRecompress({
                 method: 'smallfry',
                 target: 0.5
             })
         ]))
-        .pipe($.if(['pizzeria.jpg'],imageResize({
-            percentage: 50
+        .pipe($.if(['pizzeria.jpg'], imageResize({
+            width: 720
+        })))
+        .pipe($.if(['pizza.png'], imageResize({
+            width: 205
         })))
         .pipe(gulp.dest(dist))
         .pipe($.size({
@@ -187,7 +190,7 @@ gulp.task('serve:dev', '', function() {
 
     gulp.watch(['src/*.html', 'src/views/*.html'], reload);
     gulp.watch(['src/css/*.css', 'src/views/css/*.css'], reload);
-    gulp.watch(['src/js/*.js', 'src/views/js/*.js'], ['jshint',reload]);
+    gulp.watch(['src/js/*.js', 'src/views/js/*.js'], ['jshint', reload]);
     gulp.watch(['src/img/*', 'src/views/images/*'], reload);
 });
 
@@ -204,14 +207,14 @@ gulp.task('serve', ['default'], function() {
         baseDir: "dist"
     });
 
-    gulp.watch('src/*.html', ['copy-top-html',reload]);
-    gulp.watch('src/css/*.css', ['copy-top-css',reload]);
-    gulp.watch('src/js/*.js', ['jshint','copy-top-js',reload]);
-    gulp.watch('src/img/*', ['copy-top-images',reload]);
-    gulp.watch('src/views/*.html', ['copy-pizza-html',reload]);
-    gulp.watch('src/views/css/*.css', ['copy-pizza-css',reload]);
-    gulp.watch('src/views/js/*.js', ['jshint','copy-pizza-js',reload]);
-    gulp.watch('src/views/images/*', ['copy-pizza-images',reload]);
+    gulp.watch('src/*.html', ['copy-top-html', reload]);
+    gulp.watch('src/css/*.css', ['copy-top-css', reload]);
+    gulp.watch('src/js/*.js', ['jshint', 'copy-top-js', reload]);
+    gulp.watch('src/img/*', ['copy-top-images', reload]);
+    gulp.watch('src/views/*.html', ['copy-pizza-html', reload]);
+    gulp.watch('src/views/css/*.css', ['copy-pizza-css', reload]);
+    gulp.watch('src/views/js/*.js', ['jshint', 'copy-pizza-js', reload]);
+    gulp.watch('src/views/images/*', ['copy-pizza-images', reload]);
 });
 
 // Build Production Files, the Default Task
@@ -235,7 +238,7 @@ function handleError(err) {
 // Run PageSpeed Insights
 gulp.task('pagespeed', function() {
     psiNgrok({
-        pages: ['index.html','views/pizza.html'],
+        pages: ['index.html', 'views/pizza.html'],
         port: port,
         onBeforeConnect: connectServer,
         onError: handleError,
