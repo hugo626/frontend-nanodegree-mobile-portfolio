@@ -27,3 +27,15 @@ change made
       var bodyScrollTop = document.body.scrollTop;
     ```  
 3. compress both pizza.png and pizzeria.jpg. Also after observation, both pictures are too large than their max size in web page, so I decide to resize both size to match with their maximum size in web page.
+
+For index.html
+1. download three picture for thumbnail.
+2. add media = "print" to print.css
+```
+<link href="css/print.css" rel="stylesheet" media="print">
+```
+2. move to bottom analytics.js of body tag, and add async
+```
+<script async src="http://www.google-analytics.com/analytics.js"></script>
+```
+3. generate a thumnail for pizzeria.jpg

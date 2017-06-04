@@ -53,7 +53,7 @@ var copyAndMinifyImage = function(src, dist, name) {
             })
         ]))
         .pipe($.if(['pizzeria.jpg'], imageResize({
-            quality: 0.1,
+            quality: 0.5,
             width: 720
         })))
         .pipe($.if(['pizza.png'], imageResize({
@@ -76,7 +76,7 @@ var copyAndMinifyHtml = function(src, dist, name) {
             removeComments: true,
             minifyJS:true,
             minifyCSS:true,
-            
+
         })))
         .pipe(gulp.dest(dist))
         .pipe($.size({
