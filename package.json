@@ -40,6 +40,7 @@
     "gulp-util": "^3.0.8",
     "imagemin-jpegtran": "^5.0.2",
     "imagemin-optipng": "^5.2.1",
+    "imagemin-jpeg-recompress": "^5.1.0",
     "jshint": "^2.9.4",
     "jshint-stylish": "^2.2.1",
     "ngrok": "^2.2.9",

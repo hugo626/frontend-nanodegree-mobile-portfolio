@@ -22,11 +22,12 @@
 // Include Gulp & Tools We'll Use
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
+var gutil = require('gulp-util');
 var del = require('del');
 var runSequence = require('run-sequence');
 var browserSync = require('browser-sync');
-
-var pagespeed = require('psi');
+var imageminJpegRecompress = require('imagemin-jpeg-recompress');
+var ngrok = require('ngrok');
 var psiNgrok = require('psi-ngrok');
 var port = 8000;
 
@@ -41,11 +42,11 @@ var PIZZA_DIST_PATH = DIST + PIZZA_ROOT;
 var copyAndMinifyImage = function(src, dist, name) {
     return gulp.src(src)
         .pipe($.imagemin([$.imagemin.jpegtran({
-                progressive: true
+                progressive: true,
             }),
             $.imagemin.optipng({
-                optimizationLevel: 5
-            })
+                optimizationLevel: 7
+            }),imageminJpegRecompress()
         ]))
         .pipe(gulp.dest(dist))
         .pipe($.size({
@@ -170,9 +171,9 @@ gulp.task('serve:dev', '', function() {
         server: ['.tmp', 'src']
     }, function(err, bs) {
         ngrok.connect(bs.options.get('port'), function(err, url) {
-            console.log(' -------------------------------------');
-            $.gutil.log('\r', '      NGROK:', $.gutil.colors.magenta(url));
-            console.log(' -------------------------------------');
+            gutil.log(' -------------------------------------');
+            gutil.log('\r', '      NGROK:', gutil.colors.magenta(url));
+            gutil.log(' -------------------------------------');
         });
     });
 
