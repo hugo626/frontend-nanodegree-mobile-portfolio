@@ -123,7 +123,7 @@ gulp.task('jshint', function() {
             stream: true,
             once: true
         }))
-        .pipe($.jshint())
+        .pipe($.jshint('.jshintrc'))
         .pipe($.jshint.reporter('jshint-stylish'))
         .pipe($.if(!browserSync.active, $.jshint.reporter('fail')));
 });
@@ -186,12 +186,6 @@ gulp.task('serve:dev', '', function() {
         //       will present a certificate warning in the browser.
         // https: true,
         server: ['.tmp', 'src']
-    }, function(err, bs) {
-        ngrok.connect(bs.options.get('port'), function(err, url) {
-            gutil.log(' -------------------------------------');
-            gutil.log('\r', '      NGROK:', gutil.colors.magenta(url));
-            gutil.log(' -------------------------------------');
-        });
     });
 
     gulp.watch(['src/*.html', 'src/views/*.html'], reload);
@@ -244,7 +238,7 @@ function handleError(err) {
 // Run PageSpeed Insights
 gulp.task('pagespeed', function() {
     psiNgrok({
-        pages: ['index.html', 'views/pizza.html'],
+        pages: ['index.html','views/pizza.html'],
         port: port,
         onBeforeConnect: connectServer,
         onError: handleError,
