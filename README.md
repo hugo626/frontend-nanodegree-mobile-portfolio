@@ -52,7 +52,12 @@ In order to be able to run and build locally, you have to install [node.js](http
    ```
 2. Install [GraphicsMagick](http://www.graphicsmagick.org/), in our project, we are using some image compressing and resizing function from GraphicsMagick, so you have to install it first. ***NOTICE**. make sure to check ```gm``` commands is callable throught terminal.*
 
-3. Go to the root folder of this project ```**/frontend-nanodegree-mobile-portfolio/``` then run 
+3. Install Ngrok from npm, website can be found from [here](https://www.npmjs.com/package/ngrok).
+   ```
+   npm install ngrok -g
+   ```
+
+4. Go to the root folder of this project ```**/frontend-nanodegree-mobile-portfolio/``` then run 
    ```
    npm install
    ```
@@ -164,7 +169,31 @@ When you run ```gulp```, it is actually run every copy tasks sequentially, detai
           }
           ....
         }
-        ```  
+        ```
+    * From reviewer's comments, I also replace the ```querySelectorAll()``` with ```getElementsByClassName()``` in ```changePizzaSizes(size)```.
+      ```javascript
+      // Iterates through pizza elements on the page and changes their widths
+      function changePizzaSizes(size) {
+        var pizzaContainers = document.getElementsByClassName("randomPizzaContainer");
+      }
+      ```
+    * I also move the ```document.getElementById("randomPizzas")``` out of the for loop.
+      ```javascript
+      var pizzasDiv = document.getElementById("randomPizzas");
+      for (var i = 2; i < 100; i++) {
+        pizzasDiv.appendChild(pizzaElementGenerator(i));
+      }
+      ```
+    * Another magjor change is to calculate the number of pizzas in background. THe idea is inspired by Project reviewer. I use ```window.screen.height``` and ```window.screen.width``` to get the size of user's screen. Then to calculate the number of rows by ```iHeight / pizzaHeight``` and the number of cols by ```iWidth /pizzaDivWidth```.
+      ```javascript
+      var pizzaHeight = 100;
+      var iHeight = window.screen.height;
+      var iWidth = window.screen.width;
+      // add extra 1 colum and row so that pizzas should be able to cover whole screen.
+      var rows = Math.ceil(iHeight / pizzaHeight)+1;
+      var cols = Math.ceil(iWidth /pizzaDivWidth)+1;
+      var numOfPizza = rows*cols;
+      ```
 2. Images
 
     I observed ```pizzeria.jpg``` is too large than its reuqired max size in web page, so I decide to resize ```pizzeria.jpg``` to match with their max size in web page. 

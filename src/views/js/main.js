@@ -458,7 +458,7 @@ var resizePizzas = function(size) {
 
   // Iterates through pizza elements on the page and changes their widths
   function changePizzaSizes(size) {
-    var pizzaContainers = document.querySelectorAll(".randomPizzaContainer");
+    var pizzaContainers = document.getElementsByClassName("randomPizzaContainer");
     var newSize;
     for (var i = 0; i < pizzaContainers.length; i++) {
       // Changes the slider value to a percent width
@@ -491,8 +491,8 @@ var resizePizzas = function(size) {
 window.performance.mark("mark_start_generating"); // collect timing data
 
 // This for-loop actually creates and appends all of the pizzas when the page loads
+var pizzasDiv = document.getElementById("randomPizzas");
 for (var i = 2; i < 100; i++) {
-  var pizzasDiv = document.getElementById("randomPizzas");
   pizzasDiv.appendChild(pizzaElementGenerator(i));
 }
 
@@ -549,16 +549,23 @@ window.addEventListener('scroll', updatePositions);
 // Generates the sliding pizzas when the page loads.
 document.addEventListener('DOMContentLoaded', function() {
   "use strict";
-  var cols = 8;
-  var s = 256;
-  for (var i = 0; i < 200; i++) {
+  var pizzaDivWidth = 256;
+  // here we use the full size of screen to calculate the number of pizzas on
+  // background.
+  var pizzaHeight = 100;
+  var iHeight = window.screen.height;
+  var iWidth = window.screen.width;
+  var rows = Math.ceil(iHeight / pizzaHeight)+1;
+  var cols = Math.ceil(iWidth /pizzaDivWidth)+1;
+  var numOfPizza = rows*cols;
+  for (var i = 0; i < numOfPizza; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
-    elem.style.height = "100px";
+    elem.style.height = pizzaHeight+"px";
     elem.style.width = "73.333px";
-    elem.basicLeft = (i % cols) * s;
-    elem.style.top = (Math.floor(i / cols) * s) + 'px';
+    elem.basicLeft = (i % cols) * pizzaDivWidth;
+    elem.style.top = (Math.floor(i / cols) * pizzaDivWidth) + 'px';
     document.querySelector("#movingPizzas1").appendChild(elem);
   }
   updatePositions();
